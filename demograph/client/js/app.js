@@ -14,6 +14,8 @@ var labels = [["Total Population", "Male", "Female"], ["Total Population", "Whit
 
 var states = [];
 
+var MAP_ZOOM = 10;
+
 // Initializing states array
 Meteor.call("states", key, function(error, r) {
 	if (error) {
@@ -368,18 +370,29 @@ Template.map.onCreated(function () {
 	GoogleMaps.ready('myMap', mapReady);
 });
 
-Template.map.helpers({
-	options: function() {
-		if (GoogleMaps.loaded()) {
-			return {
-				center: {lat: 21.3, lng: -157.818968},
-				zoom: 10,
-				streetViewControl: false,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			};
-		}
-	}
+/////////////////////////////////////////////////////////////////////////
+//Source: http://meteorcapture.com/reactive-geolocation-with-google-maps/
+/////////////////////////////////////////////////////////////////////////
+Template.map.helpers({  
+  geolocationError: function() {
+    var error = Geolocation.error();
+    return error && error.message;
+  },
+  options: function() {
+    var latLng = Geolocation.latLng();
+    // Initialize the map once we have the latLng.
+    if (GoogleMaps.loaded() && latLng) {
+      return {
+        center: new google.maps.LatLng(latLng.lat, latLng.lng),
+	streetViewControl: false,
+	mapTypeControl:false,
+	mapTypeId: google.maps.MapTypeId.ROADMAP,
+        zoom: MAP_ZOOM
+      };
+    }
+  }
 });
+
 
 Template.tabs.events({
 	"click #upDown": function(e) {
