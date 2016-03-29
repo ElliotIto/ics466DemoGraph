@@ -319,6 +319,7 @@ function mapClick(e) {
   	gc({'location': e.latLng}, parse);
 }
 
+
 function mapReady(map) {
 	info = new google.maps.InfoWindow();
 	mainMap = map.instance;
@@ -326,13 +327,14 @@ function mapReady(map) {
 		position: map.options.center,
 		map: map.instance
 	});
-
+	map.instance.addListener('click', mapClick);
 	kmlLayer =	new google.maps.KmlLayer({
-		 url: 'https://github.com/ElliotIto/ics466DemoGraph/blob/elliotTesting/resources/cb_2014_us_state_20m.kml',
+		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
+		 posistion: map.options.center,
 		 map: map.instance
 	 });
-	 map.instance.addListener('click', mapClick);
 }
+
 
 function search() {
 	var q = constructQuery();
