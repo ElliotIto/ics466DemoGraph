@@ -319,7 +319,7 @@ function mapClick(e) {
   	gc({'location': e.latLng}, parse);
 }
 
-
+// https://developers.google.com/maps/documentation/javascript/kmllayer#kml_feature_details
 function mapReady(map) {
 	info = new google.maps.InfoWindow();
 	mainMap = map.instance;
@@ -328,11 +328,13 @@ function mapReady(map) {
 		map: map.instance
 	});
 	map.instance.addListener('click', mapClick);
-	kmlLayer =	new google.maps.KmlLayer({
+	var kmlLayer =	new google.maps.KmlLayer({
 		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
-		 posistion: map.options.center,
 		 map: map.instance
 	 });
+
+
+
 }
 
 
@@ -367,7 +369,6 @@ function sortData(data) {
 	return retval;
 }
 
-
 Template.map.onCreated(function () {
 	GoogleMaps.ready('myMap', mapReady);
 });
@@ -375,7 +376,7 @@ Template.map.onCreated(function () {
 /////////////////////////////////////////////////////////////////////////
 //Source: http://meteorcapture.com/reactive-geolocation-with-google-maps/
 /////////////////////////////////////////////////////////////////////////
-Template.map.helpers({  
+Template.map.helpers({
   geolocationError: function() {
     var error = Geolocation.error();
     return error && error.message;
