@@ -330,7 +330,8 @@ function mapReady(map) {
 	map.instance.addListener('click', mapClick);
 	var kmlLayer =	new google.maps.KmlLayer({
 		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
-		 map: map.instance
+		 map: map.instance,
+		 clickable: false,
 	 });
 
 
