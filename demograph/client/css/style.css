@@ -53,7 +53,44 @@
 	padding: 0;
 }
 
+#chart, #information {
+	margin: 0
+}
+
+form {
+	position: relative;
+	top: -50px;
+	padding: 15px;
+}
+
+#burger {
+	position: relative;
+	top: 5px;
+	right: 50px;
+	z-index: 2;
+}
+
+#burgerWrapper {
+	position: relative;
+  top: 5px;
+	right: 50px;
+	padding-top: 15px;
+	padding-right: 0px;
+}
+
+.search-closed {
+	width: 50px;
+}
+
+.search-open {
+	width: 100%;
+}
+
 @media screen and (orientation: portrait) {
+	#burger {
+		position: fixed;
+		right: 25px;
+	}
 	.map-tab-open {
 		height: 400px;
 	}
@@ -69,9 +106,19 @@
 	.tabs-closed {
 		height: 10px;
 	}
+
+	form {
+		position: relative;
+		top: 0;
+		padding: 0px;
+	}
 }
 
-@media screen and (orientation: landscape) and (max-width: 960px) {
+@media screen and (orientation: landscape) and (min-width: 300px) and (max-width: 960px) {
+	#burger {
+		position: fixed;
+		right: 25px;
+	}
 	.map-tab-open {
 		height: 270px;
 	}
@@ -87,34 +134,19 @@
 	.tabs-closed {
 		height: 270px;
 	}
-}
 
-#chart, #information {
-	margin: 0
-}
+  .search-open {
+		width: 100%;
+	}
 
-form {
-	position: relative;
-	top: -50px;
-	padding: 15px;
-}
+	.search-closed {
+		width: 25px;
+	}
 
-#burger {
-	position: relative;
-	top: 5px;
-	right: 100px;
-	z-index: 2;
-}
-
-#burgerWrapper {
-	padding-top: 15px;
-	padding-right: 0px;
-}
-
-.search-closed {
-	width: 50px;
-}
-
-.search-open {
-	width: 100%;
+	form
+	{
+		position: relative;
+		top: 0px;
+		padding: 0px;
+	}
 }
