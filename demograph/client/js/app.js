@@ -329,11 +329,8 @@ function mapReady(map) {
 	});
 	var kmlLayer =	new google.maps.KmlLayer({
 		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
-<<<<<<< 16cc75699385fe6608f9b64546316583e83208c4
 		 map: map.instance,
 		 clickable: false,
-=======
->>>>>>> testing
 	 });
 	 kmlLayer.setMap(map.instance);
 	 map.instance.addListener('click', mapClick);
