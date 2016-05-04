@@ -321,22 +321,22 @@ function mapClick(e) {
 
 // https://developers.google.com/maps/documentation/javascript/kmllayer#kml_feature_details
 function mapReady(map) {
+	var kmlLayer =	new google.maps.KmlLayer({
+		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
+		 map: map.instance,
+		 suppressInfoWindows: true,
+		 clickable: false,
+	 });
 	info = new google.maps.InfoWindow();
 	mainMap = map.instance;
 	marker = new google.maps.Marker({
 		position: map.options.center,
 		map: map.instance
 	});
-	var kmlLayer =	new google.maps.KmlLayer({
-		 url: 'https://raw.githubusercontent.com/ElliotIto/ics466DemoGraph/elliotTesting/resources/cb_2014_15_tract_500k.kml',
-<<<<<<< HEAD
-		 map: map.instance,
-		 clickable: false,
-=======
->>>>>>> 47a3a0995ca5b539b42a8bf33adba25862f0ed8b
-	 });
+
 	 kmlLayer.setMap(map.instance);
-	 map.instance.addListener('click', mapClick);
+	//  map.instance.addListener('click', mapClick);
+	map.instance.addListener('click', mapClick);
 }
 
 
