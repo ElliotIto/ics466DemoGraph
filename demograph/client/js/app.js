@@ -8,9 +8,20 @@ Session.set("renderedStates", false);
 
 // Necessary data
 var key = "d1dd85496279393bec91d98ae64dca9eae86ba3b", marker, zip, mainMap, info;
-var codes = [["B01003_001E","B01001_002E","B01001_026E"], ["B01003_001E", "B02001_002E", "B02001_003E", "B02001_004E", "B02001_005E", "B02001_006E", "B02001_007E", "B02001_008E"]];
-var params = ["Total Population by Gender", "Total Population by Race"];
-var labels = [["Total Population", "Male", "Female"], ["Total Population", "White", "Black", "American Indian or Alaska Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Other", "Two or More"]];
+
+var codes = [
+	["B01003_001E","B01001_002E","B01001_026E"],
+	["B01003_001E", "B02001_002E", "B02001_003E", "B02001_004E", "B02001_005E", "B02001_006E", "B02001_007E", "B02001_008E"],
+	["B06010_001E", "B06010_002E", "B06010_004E", "B06010_005E", "B06010_006E", "B06010_007E", "B06010_008E", "B06010_009E", "B06010_010E", "B06010_011E"]
+];
+
+var params = ["Total Population by Gender", "Total Population by Race", "Population by Income Level"];
+
+var labels = [
+	["Total Population", "Male", "Female"],
+	["Total Population", "White", "Black", "American Indian or Alaska Native", "Asian", "Native Hawaiian or Other Pacific Islander", "Other", "Two or More"],
+	["Total Population", "No Income", "$1 - $9,999", "$10,000 - $14,999", "$15,000 - $24,999", "$25,000 - $34,999", "$35,000 - $49,000", "$50,000 - $64,999", "$65,000 - $74,999", "$75,000+"]
+];
 
 var states = [];
 
@@ -34,6 +45,18 @@ Meteor.call("states", key, function(error, r) {
 var genders = [['Male', 'male'], ['Female', 'female']];
 
 var races = [ ['White', 'white'], ['Black', 'black'], ['American Indian or Alaska Native', 'native'], ['Asian', 'asian'], ['Native Hawaiian or Other Pacific Islander', 'hwn'], ['Other', 'other'], ['Two or More Races', 'ge2'] ];
+
+var incomes = [
+	['No Income', 'z'],
+	['$1 - $9,999', 'le9999'],
+	['$10,000 - $14,999', 'ge10000le14999'],
+	['$15,000 - $24,999', 'ge10000le24999'],
+	['$25,000 - $34,999', 'ge25000le34999'],
+	['$35,000 - $49,000', 'ge35000le49999'],
+	['$50,000 - $64,999', 'ge50000le64999'],
+	['$65,000 - $74,999', 'ge65000le74999'],
+	['$75,000+', 'ge75000']
+];
 
 var ages = [
 	['Any age', 'any'],
@@ -190,10 +213,12 @@ function chartBuild() {
 	var data = [];
 	var c = [];
 	var text = $("#choices option:selected").text();
+	// console.log(text);
 	$("#information p").each(function() {
 		var t = $(this);
 		c.push([t.text().split(": ")[0], Number.parseInt(t.text().split(": ")[1])]);
 	});
+	// console.log(c);
 
 	var total = c[1][1];
 	for (var l = 2; l < c.length; l++) {
@@ -344,7 +369,7 @@ function search() {
 	$("#ressLoading").show();
 	$("#ressError").hide();
 	$("#ress").hide();
-	Meteor.call("cenCall2", key, q.code, q.state, function(error, r) {
+	Meteor.call("cenCall", key, q.code, q.state, function(error, r) {
 		if (error) $("#ressError").show(); else if (r) {
 			var d = sortData(r.data);
 			Session.set("results", "");
