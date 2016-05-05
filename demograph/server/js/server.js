@@ -18,6 +18,8 @@ Meteor.methods({
 	cenCall: function(key, info, tract, state, county) {
 		this.unblock();
     // console.log('http://api.census.gov/data/2014/acs5?key=' + key + '&get=' + info.join() + '&for=tract:' + tract + '&in=state:' + state + '+county:' + county);
+    console.log(info);
+    console.log(info.join());
 		return Meteor.http.call('GET', 'http://api.census.gov/data/2014/acs5?key=' + key + '&get=' + info.join() + '&for=tract:' + tract + '&in=state:' + state + '+county:' + county);
 	},
 	/* Provides information from state from the provided information of the query

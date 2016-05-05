@@ -90,6 +90,9 @@ Template.search.helpers({
 	ages: function() {
 		return ages;
 	},
+	incomes: function() {
+		return incomes;
+	},
 	rendered: function() {
 		return Session.get("renderedStates");
 	}
@@ -131,6 +134,7 @@ function createCodes() {
 	var aRace = ["A", "B", "C", "D", "E", "F", "G"];
 	for (var p = 2; p <= 31; p++) {
 		for (var k = 0; k < aRace.length; k++) {
+			// for (var inc = 0; inc < )
 			retval[retval.length] = "B01001" + aRace[k] + "_" + pad(p, 3) + "E";
 		}
 	}
@@ -173,7 +177,9 @@ Template.infoDiv.events({
 function constructQuery() {
 	var state = states[$("#selectL option:selected").index()][1];
 	var ageInc = ages.length * $("#selectG option:selected").index();
+	var income = incomes.length * $("#selectI option:selected").index();
 	var code = codes2[races.length * ($("#selectA option:selected").index() + ageInc) + $("#selectR option:selected").index()];
+	// console.log(code);
 	return {
 		state: state,
 		code: code
@@ -369,7 +375,7 @@ function search() {
 	$("#ressLoading").show();
 	$("#ressError").hide();
 	$("#ress").hide();
-	Meteor.call("cenCall", key, q.code, q.state, function(error, r) {
+	Meteor.call("cenCall2", key, q.code, q.state, function(error, r) {
 		if (error) $("#ressError").show(); else if (r) {
 			var d = sortData(r.data);
 			Session.set("results", "");

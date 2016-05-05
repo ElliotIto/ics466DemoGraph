@@ -41,6 +41,14 @@
 				{{/each}}
 			</select>
 		</div>
+		<div id="income">
+			<p>Income</p>
+			<select class="form-control" id="selectI">
+				{{#each income in incomes}}
+					<option value="income-{{income.[1]}}">{{income.[0]}}</option>
+				{{/each}}
+			</select>
+		</div>
 		<input type="submit" class="form-control">
 		</form>
 		<div id="resultsSrc">
